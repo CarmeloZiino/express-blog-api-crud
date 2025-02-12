@@ -6,7 +6,6 @@
        Se tutto funziona, passiamo alla prossima milestone
 */
 
-
 const express = require("express"); //Richiama l'utilizzo di Express
 const router = express.Router(); //Definisce Express nella costante app
 
@@ -23,16 +22,16 @@ const {
 
 // Associo le varie rotte alle funzioni
 
-router.get('/', index);
+router.get("/", index);
 
-router.get('/:id', show);
+router.get("/:id", show);
 
-router.post('/', store);
+router.post("/", store);
 
-router.put('/:id', update);
+router.put("/:id", update);
 
-router.patch('/:id', patch);
+router.patch("/:id", patch);
 
-router.delete('/:id', destroy);
+router.delete("/:id", destroy);
 
-module.exports = router
+module.exports = router;
