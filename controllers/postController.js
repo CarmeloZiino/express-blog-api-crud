@@ -8,9 +8,6 @@
 
 const arrayPosts = require("../data/posts"); //Richiama l'array dei post, nella cartella data
 
-
-
-
 /* MILESTONE 2
     3. Ora passiamo ad implementare le logiche delle nostre CRUD:
 
@@ -27,25 +24,42 @@ function index(req, res) {
 }
 
 function show(req, res) {
-    //   res.send("Dettagli del post" + req.params.id); //MILESTONE 1
-    const id = parseInt(req.params.id); //recupero id e lo trasformo in numero
-    const post = arrayPosts.find (post => post.id === id) //Cerco il post tramite l'id
+  //   res.send("Dettagli del post" + req.params.id); //MILESTONE 1
+  const id = parseInt(req.params.id); //recupero id e lo trasformo in numero
+  const post = arrayPosts.find((post) => post.id === id); //Cerco il post tramite l'id
 
-    if (!post){ //Condizione per la quale se non trova l'id e quindi il post, dà errore
-        res.status(404);
+  if (!post) {
+    //Condizione per la quale se non trova l'id e quindi il post, dà errore
+    res.status(404);
 
-        return res.json({
-            status: 404,
-            error: "Not Found",
-            message: "Post non trovata"
-    })}
+    return res.json({
+      status: 404,
+      error: "Not Found",
+      message: "Post non trovata",
+    });
+  }
 
-    res.json(post)
-
+  res.json(post);
 }
 
 function store(req, res) {
-  res.send("Creazione nuovo post");
+  // res.send("Creazione nuovo post");
+
+  const newId = arrayPosts[arrayPosts.length - 1].id + 1;
+
+  const newPost = {
+    id: newId,
+    title: req.body.title,
+    content: req.body.content,
+    image: req.body.image,
+    tags: req.body.tags,
+  };
+  arrayPosts.push(newPost);
+
+  console.log(arrayPosts);
+
+  res.status(201);
+  res.json(newPost);
 }
 
 function update(req, res) {
@@ -57,24 +71,24 @@ function patch(req, res) {
 }
 
 function destroy(req, res) {
-//   res.send("Eliminazione del post" + req.params.id); //MILESTONE 1
-  
+  //   res.send("Eliminazione del post" + req.params.id); //MILESTONE 1
+
   const id = parseInt(req.params.id); //recupero id e lo trasformo in numero
-  const post = arrayPosts.find (post => post.id === id) //Cerco il post tramite l'id
+  const post = arrayPosts.find((post) => post.id === id); //Cerco il post tramite l'id
 
-    if (!post){ //Condizione per la quale se non trova l'id e quindi il post, dà errore
-        res.status(404);
+  if (!post) {
+    //Condizione per la quale se non trova l'id e quindi il post, dà errore
+    res.status(404);
 
-        return res.json({
-            status: 404,
-            error: "Not Found",
-            message: "Post non trovata"
-    })
- }
- arrayPosts.splice (arrayPosts.indexOf(post), 1); //Rimuovo il post selezionato dall'array
- res.json(arrayPosts)
- res.send.status(204)
-
+    return res.json({
+      status: 404,
+      error: "Not Found",
+      message: "Post non trovata",
+    });
+  }
+  arrayPosts.splice(arrayPosts.indexOf(post), 1); //Rimuovo il post selezionato dall'array
+  res.json(arrayPosts);
+  res.sendstatus(204);
 }
 
 module.exports = { index, show, store, update, patch, destroy };

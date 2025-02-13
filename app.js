@@ -5,6 +5,10 @@ const port = 3000; //Definisce una porta alla quale assegnare i comandi
 const postsRouter = require("./routers/postRouter"); //Richiama il routers
 
 app.use(express.static("public")); //Consente l'accesso alla cartella pubblic
+
+app.use(express.json());
+
+
 app.use("/posts", postsRouter);
 
 app.get("/", (req, res) => {
