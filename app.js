@@ -2,9 +2,12 @@ const express = require("express"); //Richiama l'utilizzo di Express
 const app = express(); //Definisce Express nella costante app
 const port = 3000; //Definisce una porta alla quale assegnare i comandi
 const checkTime = require("./middlewares/checkTime")
+const errorsHandler = require("./middlewares/errorsHandler")
+
 const postsRouter = require("./routers/postRouter"); //Richiama il routers
 
-app.use("/posts", checkTime);
+app.use(checkTime);
+app.use(errorsHandler);
 
 app.use(express.static("public")); //Consente l'accesso alla cartella pubblic
 
